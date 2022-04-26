@@ -6,14 +6,15 @@ main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaApp extends StatelessWidget {
-  // Não é recomendado utilizar variaveis que não sejam finais nesse tipo de classe
-  // pois a mesma é imutavel e contem variaveis que podem ser modificadas?, não
-  // faz sentido
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
 
   void responder() {
-    perguntaSelecionada++;
+    //Sempre que precisar renderizar, chame o setState
+    //Parecido com o useState do React
+    setState(() {
+      perguntaSelecionada++;
+    });
     print('pergunta respondida!');
     print('perguntaSelecionada ==> $perguntaSelecionada');
   }
@@ -40,5 +41,11 @@ class PerguntaApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class PerguntaApp extends StatefulWidget {
+  PerguntaAppState createState() {
+    return PerguntaAppState();
   }
 }
