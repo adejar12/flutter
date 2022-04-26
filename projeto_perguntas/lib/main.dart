@@ -7,8 +7,15 @@ main() {
 }
 
 class PerguntaApp extends StatelessWidget {
+  // Não é recomendado utilizar variaveis que não sejam finais nesse tipo de classe
+  // pois a mesma é imutavel e contem variaveis que podem ser modificadas?, não
+  // faz sentido
+  var perguntaSelecionada = 0;
+
   void responder() {
+    perguntaSelecionada++;
     print('pergunta respondida!');
+    print('perguntaSelecionada ==> $perguntaSelecionada');
   }
 
   @override
@@ -25,16 +32,10 @@ class PerguntaApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text(perguntas[0]),
+            Text(perguntas[perguntaSelecionada]),
             ElevatedButton(onPressed: responder, child: Text('Resposta 1')),
             ElevatedButton(onPressed: responder, child: Text('Resposta 2')),
-            ElevatedButton(
-                onPressed: () {
-                  print('Resposta 3');
-                },
-                child: Text('Resposta 3')),
-            ElevatedButton(
-                onPressed: () => print('Resposta 4'), child: Text('Resposta 4'))
+            ElevatedButton(onPressed: responder, child: Text('Resposta 3')),
           ],
         ),
       ),
