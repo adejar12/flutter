@@ -12,13 +12,18 @@ class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
 
   void _responder() {
+    if (_perguntaSelecionada + 1 == 2) {
+      setState(() {
+        _perguntaSelecionada = 0;
+      });
+      return;
+    }
+
     //Sempre que precisar renderizar, chame o setState
     //Parecido com o useState do React
     setState(() {
       _perguntaSelecionada++;
     });
-    print('pergunta respondida!');
-    print('_perguntaSelecionada ==> $_perguntaSelecionada');
   }
 
   @override
@@ -36,9 +41,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: [
             Questao(perguntas[_perguntaSelecionada]),
-            Resposta('Resposta 1'),
-            Resposta('Resposta 2'),
-            Resposta('Resposta 3'),
+            Resposta('Resposta 1', _responder),
+            Resposta('Resposta 2', _responder),
+            Resposta('Resposta 3', _responder),
           ],
         ),
       ),
