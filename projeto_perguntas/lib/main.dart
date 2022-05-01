@@ -28,7 +28,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
   ];
 
   void _responder() {
-    if (_perguntaSelecionada + 1 == 2) {
+    if (_perguntaSelecionada + 1 == perguntas.length) {
       setState(() {
         _perguntaSelecionada = 0;
       });
@@ -44,6 +44,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> respostas = [];
+
+    for (var textoRespo in perguntas[_perguntaSelecionada].respostas) {
+      respostas.add(BotaoResposta(textoRespo, _responder));
+    }
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -52,9 +58,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: [
             TituloQuestao(perguntas[_perguntaSelecionada].pergunta),
-            BotaoResposta('Resposta 1', _responder),
-            BotaoResposta('Resposta 2', _responder),
-            BotaoResposta('Resposta 3', _responder),
+            ...respostas,
           ],
         ),
       ),
