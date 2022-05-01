@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_perguntas/models/respostas.dart';
 
 class BotaoResposta extends StatelessWidget {
-  final String texto;
-  final void Function() quandoSelecionado;
+  final Respostas resposta;
+  final void Function(int) quandoSelecionado;
 
-  const BotaoResposta(this.texto, this.quandoSelecionado, {Key? key})
+  const BotaoResposta(this.resposta, this.quandoSelecionado, {Key? key})
       : super(key: key);
 
   @override
@@ -12,8 +13,8 @@ class BotaoResposta extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: quandoSelecionado,
-        child: Text(texto),
+        onPressed: () => quandoSelecionado(resposta.nota),
+        child: Text(resposta.texto),
         style: ElevatedButton.styleFrom(
           primary: Colors.blue,
           onPrimary: Colors.white,

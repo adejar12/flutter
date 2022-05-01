@@ -14,6 +14,7 @@ main() {
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
 
   final List<PerguntaRespostas> perguntas = [
     PerguntaRespostas(
@@ -45,12 +46,15 @@ class _PerguntaAppState extends State<PerguntaApp> {
     )
   ];
 
-  void _responder() {
+  void _responder(int pontuacao) {
     //Sempre que precisar renderizar, chame o setState
     //Parecido com o useState do React
     setState(() {
       _perguntaSelecionada++;
+      _pontuacaoTotal += pontuacao;
     });
+
+    print(_pontuacaoTotal);
   }
 
   bool get temPerguntaSelecionada {
@@ -61,8 +65,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
   Widget build(BuildContext context) {
     List<Respostas> respostas =
         temPerguntaSelecionada ? perguntas[_perguntaSelecionada].respostas : [];
-    List<Widget> widgets =
-        respostas.map((text) => BotaoResposta(text.texto, _responder)).toList();
+    List<Widget> widgets = respostas
+        .map((resposta) => BotaoResposta(resposta, _responder))
+        .toList();
 
     /*
     
