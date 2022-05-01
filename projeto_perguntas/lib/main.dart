@@ -44,11 +44,17 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> respostas = [];
+    List<String> respostas = perguntas[_perguntaSelecionada].respostas;
+    List<Widget> widgets =
+        respostas.map((text) => BotaoResposta(text, _responder)).toList();
 
-    for (var textoRespo in perguntas[_perguntaSelecionada].respostas) {
-      respostas.add(BotaoResposta(textoRespo, _responder));
-    }
+    /*
+    
+      Forma antiga de se fazer
+
+    for (var textoRespo in respostas) {
+      widgets.add(BotaoResposta(textoRespo, _responder));
+    }*/
 
     return MaterialApp(
       home: Scaffold(
@@ -58,7 +64,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: [
             TituloQuestao(perguntas[_perguntaSelecionada].pergunta),
-            ...respostas,
+            ...widgets,
           ],
         ),
       ),
