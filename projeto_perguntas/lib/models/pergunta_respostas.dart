@@ -1,6 +1,8 @@
+import 'respostas.dart';
+
 class PerguntaRespostas {
   String pergunta;
-  List<String> respostas;
+  List<Respostas> respostas;
   String? algumaCoisaNaoObrigatoria;
 
   PerguntaRespostas({

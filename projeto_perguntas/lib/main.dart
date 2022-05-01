@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:projeto_perguntas/models/pergunta_respostas.dart';
+import 'package:projeto_perguntas/models/respostas.dart';
 import 'package:projeto_perguntas/questionario.dart';
 import 'package:projeto_perguntas/resultado.dart';
 import 'titulo_questao.dart';
@@ -17,15 +18,30 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final List<PerguntaRespostas> perguntas = [
     PerguntaRespostas(
       pergunta: 'Qual é a sua cor favorita?',
-      respostas: ['Verde', 'Azul', 'Verde', 'Vermelho'],
+      respostas: [
+        Respostas(texto: 'Verde', nota: 10),
+        Respostas(texto: 'Azul', nota: 20),
+        Respostas(texto: 'Verde', nota: 30),
+        Respostas(texto: 'Vermelho', nota: 40),
+      ],
     ),
     PerguntaRespostas(
       pergunta: 'Qual é o seu animal favorito?',
-      respostas: ['Cachorro', 'Gato', 'Passarinho', 'Coelho'],
+      respostas: [
+        Respostas(texto: 'Cachorro', nota: 10),
+        Respostas(texto: 'Gato', nota: 20),
+        Respostas(texto: 'Passarinho', nota: 30),
+        Respostas(texto: 'Coelho', nota: 40),
+      ],
     ),
     PerguntaRespostas(
       pergunta: 'Qual é seu jogo favorito?',
-      respostas: ['Dota 2', 'Left 4 dead', 'Batman', 'Outro'],
+      respostas: [
+        Respostas(texto: 'Dota 2', nota: 10),
+        Respostas(texto: 'Left 4 dead', nota: 20),
+        Respostas(texto: 'Batman', nota: 30),
+        Respostas(texto: 'Outro', nota: 40),
+      ],
     )
   ];
 
@@ -43,10 +59,10 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas =
+    List<Respostas> respostas =
         temPerguntaSelecionada ? perguntas[_perguntaSelecionada].respostas : [];
     List<Widget> widgets =
-        respostas.map((text) => BotaoResposta(text, _responder)).toList();
+        respostas.map((text) => BotaoResposta(text.texto, _responder)).toList();
 
     /*
     
