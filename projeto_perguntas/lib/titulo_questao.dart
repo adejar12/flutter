@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Questao extends StatelessWidget {
-  /// Não esqueça que em  */
+class TituloQuestao extends StatelessWidget {
+  /// Não esqueça que em
   final String texto;
 
-  /// Questão é o construtor */
-  Questao(this.texto);
+  /// Questão é o construtor
+  const TituloQuestao(this.texto, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Text(
         texto,
-        style: TextStyle(fontSize: 23),
+        style: const TextStyle(fontSize: 23),
         textAlign: TextAlign.center,
       ),
     );

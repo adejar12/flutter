@@ -1,22 +1,31 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import './questao.dart';
-import './respostas.dart';
+import 'package:projeto_perguntas/models/pergunta_respostas.dart';
+import 'titulo_questao.dart';
+import 'botao_respostas.dart';
 
 main() {
   runApp(PerguntaApp());
 }
 
-class PerguntaRespostas {
-  String pergunta = "";
-  List<String> respostas = [];
-
-  PerguntaRespostas(this.pergunta, this.respostas);
-}
-
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+
+  final List<PerguntaRespostas> perguntas = [
+    PerguntaRespostas(
+      pergunta: 'Qual é a sua cor favorita?',
+      respostas: ['Verde', 'Azul', 'Verde', 'Vermelho'],
+    ),
+    PerguntaRespostas(
+      pergunta: 'Qual é o seu animal favorito?',
+      respostas: ['Cachorro', 'Gato', 'Passarinho', 'Coelho'],
+    ),
+    PerguntaRespostas(
+      pergunta: 'Qual é seu jogo favorito?',
+      respostas: ['Dota 2', 'Left 4 dead', 'Batman', 'Outro'],
+    )
+  ];
 
   void _responder() {
     if (_perguntaSelecionada + 1 == 2) {
@@ -35,15 +44,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    final List<PerguntaRespostas> perguntas = [
-      PerguntaRespostas(
-          'Qual é a sua cor favorita?', ['Verde', 'Azul', 'Verde', 'Vermelho']),
-      PerguntaRespostas('Qual é o seu animal favorito?',
-          ['Cachorro', 'Gato', 'Passarinho', 'Coelho']),
-      PerguntaRespostas('Qual é seu jogo favorito?',
-          ['Dota 2', 'Left 4 dead', 'Batman', 'Outro'])
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -51,10 +51,10 @@ class _PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: [
-            Questao(perguntas[_perguntaSelecionada].pergunta),
-            Resposta('Resposta 1', _responder),
-            Resposta('Resposta 2', _responder),
-            Resposta('Resposta 3', _responder),
+            TituloQuestao(perguntas[_perguntaSelecionada].pergunta),
+            BotaoResposta('Resposta 1', _responder),
+            BotaoResposta('Resposta 2', _responder),
+            BotaoResposta('Resposta 3', _responder),
           ],
         ),
       ),
@@ -63,6 +63,9 @@ class _PerguntaAppState extends State<PerguntaApp> {
 }
 
 class PerguntaApp extends StatefulWidget {
+  const PerguntaApp({Key? key}) : super(key: key);
+
+  @override
   _PerguntaAppState createState() {
     return _PerguntaAppState();
   }
