@@ -28,13 +28,6 @@ class _PerguntaAppState extends State<PerguntaApp> {
   ];
 
   void _responder() {
-    if (_perguntaSelecionada + 1 == perguntas.length) {
-      setState(() {
-        _perguntaSelecionada = 0;
-      });
-      return;
-    }
-
     //Sempre que precisar renderizar, chame o setState
     //Parecido com o useState do React
     setState(() {
@@ -42,9 +35,14 @@ class _PerguntaAppState extends State<PerguntaApp> {
     });
   }
 
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < perguntas.length;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> respostas = perguntas[_perguntaSelecionada].respostas;
+    List<String> respostas =
+        temPerguntaSelecionada ? perguntas[_perguntaSelecionada].respostas : [];
     List<Widget> widgets =
         respostas.map((text) => BotaoResposta(text, _responder)).toList();
 
@@ -61,12 +59,19 @@ class _PerguntaAppState extends State<PerguntaApp> {
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
-        body: Column(
-          children: [
-            TituloQuestao(perguntas[_perguntaSelecionada].pergunta),
-            ...widgets,
-          ],
-        ),
+        body: temPerguntaSelecionada
+            ? Column(
+                children: [
+                  TituloQuestao(perguntas[_perguntaSelecionada].pergunta),
+                  ...widgets,
+                ],
+              )
+            : Center(
+                child: Text(
+                  "Parabéns",
+                  style: TextStyle(fontSize: 28),
+                ),
+              ),
       ),
     );
   }
