@@ -34,22 +34,33 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Despesas Pessoais'),
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Container(
-          child: Card(
-            color: Colors.blue,
-            child: Text('Grafico'),
-            elevation: 5,
-          ),
-        ),
-        Column(
-          children: _transactions.map((tr) {
-            return Card(
-              child: Text(tr.title),
-            );
-          }).toList(),
-        )
-      ]),
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              child: Card(
+                color: Colors.blue,
+                child: Text('Grafico'),
+                elevation: 5,
+              ),
+            ),
+            Column(
+              children: _transactions.map((tr) {
+                return Card(
+                  child: Row(children: [
+                    Container(
+                      child: Text(tr.value.toString()),
+                    ),
+                    Column(children: [
+                      Text(tr.title),
+                      Text(tr.date.toString()),
+                    ]),
+                  ]),
+                );
+              }).toList(),
+            )
+          ]),
     );
   }
 }
