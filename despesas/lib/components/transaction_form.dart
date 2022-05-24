@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class TransactionForm extends StatelessWidget {
   String title = "";
   String value = "";
+  final void Function(String, double) onSubmit;
+
+  TransactionForm({required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,7 @@ class TransactionForm extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  print(title);
-                  print(value);
+                  onSubmit(title, double.tryParse(value) ?? 0.00);
                 },
                 child: const Text('Nova Transação'),
                 style: ElevatedButton.styleFrom(
