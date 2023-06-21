@@ -17,7 +17,8 @@ class TransactionList extends StatelessWidget {
           return Card(
             child: Row(children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Theme.of(context).colorScheme.primary,
@@ -28,6 +29,8 @@ class TransactionList extends StatelessWidget {
                 child: Text(
                   'R\$ ${tr.value.toStringAsFixed(2)}',
                   style: TextStyle(
+                    fontFamily:
+                        Theme.of(context).textTheme.titleMedium?.fontFamily,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     color: Theme.of(context).colorScheme.primary,
@@ -36,12 +39,16 @@ class TransactionList extends StatelessWidget {
               ),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(tr.title,
-                    style: const TextStyle(
+                    style: TextStyle(
+                      fontFamily:
+                          Theme.of(context).textTheme.titleMedium?.fontFamily,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     )),
                 Text(DateFormat('d MMM y').format(tr.date),
-                    style: const TextStyle(
+                    style: TextStyle(
+                      fontFamily:
+                          Theme.of(context).textTheme.titleMedium?.fontFamily,
                       color: Colors.grey,
                     )),
               ]),
