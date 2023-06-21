@@ -49,6 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTrasation);
     });
+
+    /** tras a tela principal para o inicio, ficando "por cima" da modal */
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
