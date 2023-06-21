@@ -22,6 +22,7 @@ class _TransactionFormState extends State<TransactionForm> {
       return;
     }
 
+    /** Acessando dados de fora do component, pq o submit esta lá em cima */
     widget.onSubmit(text, value);
     titleController.text = "";
     valueController.text = "";
