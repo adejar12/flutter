@@ -50,27 +50,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
     Transaction(
-      id: 't0',
+      id: Random().nextDouble().toString(),
       title: 'Conta Antiga 2',
       value: 211.30,
       date: DateTime.now().subtract(Duration(days: 2)),
     ),
     Transaction(
-      id: 't1',
+      id: Random().nextDouble().toString(),
       title: 'Novo Tênis de Corrida',
       value: 310.76,
       date: DateTime.now(),
     ),
     Transaction(
-      id: 't2',
+      id: Random().nextDouble().toString(),
       title: 'Conta de luz',
-      value: 211.30,
+      value: 13.30,
       date: DateTime.now(),
     ),
     Transaction(
-      id: 't0',
+      id: Random().nextDouble().toString(),
       title: 'Conta Não tão antiga',
-      value: 211.30,
+      value: 22.30,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
+    Transaction(
+      id: Random().nextDouble().toString(),
+      title: 'Cartão de crédito',
+      value: 843865.30,
       date: DateTime.now().subtract(Duration(days: 1)),
     ),
   ];
@@ -81,12 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTrasation = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -95,6 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     /** tras a tela principal para o inicio, ficando "por cima" da modal */
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -123,7 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Chart(recentTransaction: _recentTransactions),
-          TransactionList(transactions: _transactions),
+          TransactionList(
+              transactions: _transactions,
+              removeTransaction: _removeTransaction),
         ]),
       ),
       floatingActionButton: FloatingActionButton(

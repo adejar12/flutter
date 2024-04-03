@@ -4,12 +4,15 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-  const TransactionList({required this.transactions});
+  final void Function(String) removeTransaction;
+
+  const TransactionList(
+      {required this.transactions, required this.removeTransaction});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 500,
       child: transactions.isEmpty
           ? Column(
               children: [
@@ -33,52 +36,30 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (ctx, index) {
                 final tr = transactions[index];
                 return Card(
-                  child: Row(children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'R\$ ${tr.value.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontFamily: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.fontFamily,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.primary,
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text('R\$${tr.value}'),
                         ),
                       ),
                     ),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr.title,
-                              style: TextStyle(
-                                fontFamily: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.fontFamily,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )),
-                          Text(DateFormat('d MMM y').format(tr.date),
-                              style: TextStyle(
-                                fontFamily: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.fontFamily,
-                                color: Colors.grey,
-                              )),
-                        ]),
-                  ]),
+                    title: Text(
+                      tr.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Text(
+                      DateFormat('d MMM y').format(tr.date),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () => removeTransaction(tr.id),
+                    ),
+                  ),
                 );
               },
             ),
